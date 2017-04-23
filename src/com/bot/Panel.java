@@ -13,4 +13,5 @@ public class Panel extends JPanel {
         g.setColor(Color.black);
         g.drawRect(0,0,getWidth()-1,getHeight()-1);
     }
+
 }
