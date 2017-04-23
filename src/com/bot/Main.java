@@ -179,7 +179,7 @@ public class Main {
                     points.add(f);
                     f.setBounds(f.x,f.y,f.x+3,f.y+3);
                     pointpane.add(f);
-                    
+
                     pointpane.revalidate();
                     pointpane.repaint();
                     Line Line1=new  Line(c,d);
@@ -188,6 +188,7 @@ public class Main {
                     pointpane.add(Line1);
                     pointpane.revalidate();
                     pointpane.repaint();
+                    
 
                     Line Line2= new Line(f, d);
                     lines.add(Line2);
