@@ -1,5 +1,7 @@
 package com.bot;
 
+import problem.Triangle;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,14 +14,22 @@ import java.util.Scanner;
 public class Main {
     private static ArrayList<Point> points = new ArrayList<Point>();
     private static ArrayList<Line> lines = new ArrayList<Line>();
+    static JFrame frame = new JFrame("Testframe");
+    static Panel pointpane   = new Panel();
+    static JLabel Answer = new JLabel("Ответ:");
+    static JLabel Answer1= new JLabel("");
+    static JLabel Answer2 = new JLabel("");
+    static JLabel Answer3 = new JLabel("");
+
+
     public static void createGUI() {
-        final JFrame frame = new JFrame("Testframe");
+
 	    frame.setPreferredSize(new Dimension(700,700));
 	    JPanel panel = new JPanel(new BorderLayout());
-        Panel butPanel = new Panel();
+        final Panel butPanel = new Panel();
         butPanel.setLayout(null);
         butPanel.setPreferredSize(new Dimension(250,700));
-        final Panel pointpane   = new Panel();
+
         pointpane.setLayout(null);
         //pointpane.setPreferredSize(new Dimension(350,700));
 
@@ -36,25 +46,18 @@ public class Main {
         Y.setBounds(45,25,15,25);
         butPanel.add(Y);
 
-        JLabel X1 = new JLabel("X1:");
-        X1.setBounds(2,250,90,25);
-        butPanel.add(X1);
-        JLabel Y1= new JLabel("Y1:");
-        Y1.setBounds(82,250,90,25);
-        butPanel.add(Y1);
-        JLabel X2 = new JLabel("X2:");
-        X2.setBounds(2,280,90,25);
-        butPanel.add(X2);
-        JLabel Y2 = new JLabel("Y2:");
-        Y2.setBounds(82,280,90,25);
-        butPanel.add(Y2);
-        JLabel X3 = new JLabel("X3:");
-        X3.setBounds(2,310,90,25);
-        butPanel.add(X3);
+        Answer.setBounds(2,410,200,70);
+        butPanel.add(Answer);
+        Answer1.setBounds(2,430,200,70);
+        butPanel.add(Answer1);
+        Answer2.setBounds(2,450,200,70);
+        butPanel.add(Answer2);
+        Answer3.setBounds(2,470,200,70);
+        butPanel.add(Answer3);
 
-        JLabel Y3 = new JLabel("Y3:");
-        Y3.setBounds(82,310,90,25);
-        butPanel.add(Y3);
+
+
+
 
 
         JLabel N = new JLabel("NUM:");
@@ -70,24 +73,7 @@ public class Main {
         final JTextField n = new JTextField();
         n.setBounds(35,70,25,25);
         butPanel.add(n);
-        final JTextField x1 = new JTextField();
-        x1.setBounds(22,250,25,25);
-        butPanel.add(x1);
-        final JTextField y1 = new JTextField();
-        y1.setBounds(102,250,25,25);
-        butPanel.add(y1);
-        final JTextField x2 = new JTextField();
-        x2.setBounds(22,280,25,25);
-        butPanel.add(x2);
-        final JTextField x3 = new JTextField();
-        x3.setBounds(22,310,25,25);
-        butPanel.add(x3);
-        final JTextField y2 = new JTextField();
-        y2.setBounds(102,280,25,25);
-        butPanel.add(y2);
-        final JTextField y3 = new JTextField();
-        y3.setBounds(102,310,25,25);
-        butPanel.add(y3);
+
 
 
 
@@ -136,10 +122,12 @@ public class Main {
                         pointpane.remove(point);
                         pointpane.repaint();
                         pointpane.revalidate();
+
                     }
                 }
             }
         });
+
         button2.setBounds(2,150,160,40);
         butPanel.add(button2);
         panel.add(pointpane,BorderLayout.CENTER);
@@ -149,77 +137,76 @@ public class Main {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        JButton button3 = new JButton("Добавить треугольник");
+        JButton button6 = new JButton("убрать треугольник");
+        button6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (int i=0;i<lines.size();i++){
+                    while(lines.size() > 0) {
+                        int index = lines.size() - 1;
+                        Line line =lines.remove(index);
+                        pointpane.remove(line);
+                        pointpane.repaint();
+                        pointpane.revalidate();
+                        Answer.setText("");
+                        butPanel.repaint();
+                        butPanel.revalidate();
+                        Answer1.setText("");
+                        butPanel.repaint();
+                        butPanel.revalidate();
+                        Answer2.setText("");
+                        butPanel.repaint();
+                        butPanel.revalidate();
+                        Answer3.setText("");
+                        butPanel.repaint();
+                        butPanel.revalidate();
+                    }
+                }
+            }
+        });
+        button6.setBounds(2,300,160,40);
+        butPanel.add(button6);
+        panel.add(pointpane,BorderLayout.CENTER);
+        panel.add(butPanel,BorderLayout.EAST);
+        frame.getContentPane().add(panel);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+        JButton button3 = new JButton("Чтение из файла");
         button3.setBounds(2,200,180,40);
         butPanel.add(button3);
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int X1 = (!x1.getText().equals("")?Integer.parseInt(x1.getText()):0);
-                int Y1= (!y1.getText().equals("")?Integer.parseInt(y1.getText()):0);
-                int X2 = (!x2.getText().equals("")?Integer.parseInt(x2.getText()):0);
-                int Y2= (!y2.getText().equals("")?Integer.parseInt(y2.getText()):0);
-                int X3 = (!x3.getText().equals("")?Integer.parseInt(x3.getText()):0);
-                int Y3= (!y3.getText().equals("")?Integer.parseInt(y3.getText()):0);
-                if ((X3-X1)/(X2-X1)!=(Y3-Y1)/(Y2-Y1)){
 
-                    Point c = new Point(X1, Y1);
-                    points.add(c);
-                    c.setBounds(c.x,c.y,c.x+3,c.y+3);
-                    pointpane.add(c);
-                    pointpane.revalidate();
-                    pointpane.repaint();
-                    Point d = new Point(X2, Y2);
-                    points.add(d);
-                    d.setBounds(d.x,d.y,d.x+3,d.y+3);
-                    pointpane.add(d);
-                    pointpane.revalidate();
-                    pointpane.repaint();
-                    Point f = new Point(X3, Y3);
-                    points.add(f);
-                    f.setBounds(f.x,f.y,f.x+3,f.y+3);
-                    pointpane.add(f);
-
-                    pointpane.revalidate();
-                    pointpane.repaint();
-                    Line Line1=new  Line(c,d);
-                   lines.add(Line1);
-                    Line1.setBounds(2, 2, frame.getWidth(), frame.getHeight());
-                    pointpane.add(Line1);
-                    pointpane.revalidate();
-                    pointpane.repaint();
-                    
-
-                    Line Line2= new Line(f, d);
-                    lines.add(Line2);
-                    Line2.setBounds(2, 2, frame.getWidth(), frame.getHeight());
-                    pointpane.add(Line2);
-                    pointpane.revalidate();
-                    pointpane.repaint();
-
-                    Line Line3= new Line(f,c);
-
-                    lines.add(Line3);
-                    Line3.setBounds(2, 2, frame.getWidth(), frame.getHeight());
-                    pointpane.add(Line3);
-                    pointpane.revalidate();
-                    pointpane.repaint();
+            }}
+        );
 
 
+        JButton button4 = new JButton("Решить задачу");
+        button4.setBounds(2,250,180,40);
+        butPanel.add(button4);
+        button4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                solve();
+            }}
+            );
 
-                System.out.println("Добавлен треугольник");
-                System.out.println("Точка 1: x1="+x1.getText()+"  y1="+y1.getText());
+        JButton button5 = new JButton("Вывод в файл");
+        button5.setBounds(2,350,180,40);
+        butPanel.add(button5);
+        button5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-                System.out.println("Точка 2: x2="+x2.getText()+"  y2="+y2.getText());
-                System.out.println("Точка 3: x3="+x3.getText()+"  y3="+y3.getText());}
-                else{
-                    System.out.println("Такого треугольника не существует");
-                }
+            }}
+        );
 
-
-            }
-        });
     }
+
+
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -229,4 +216,105 @@ public class Main {
             }
         });
     }
+
+    public static void paintTriangle(int X1,int X2,int X3,int Y1,int Y2,int Y3){
+        if ((X3-X1)/(X2-X1)!=(Y3-Y1)/(Y2-Y1)){
+
+            Point c = new Point(X1, Y1);
+            points.add(c);
+            c.setBounds(c.x,c.y,c.x+3,c.y+3);
+            pointpane.add(c);
+            pointpane.revalidate();
+            pointpane.repaint();
+            Point d = new Point(X2, Y2);
+            points.add(d);
+            d.setBounds(d.x,d.y,d.x+3,d.y+3);
+            pointpane.add(d);
+            pointpane.revalidate();
+            pointpane.repaint();
+            Point f = new Point(X3, Y3);
+            points.add(f);
+            f.setBounds(f.x,f.y,f.x+3,f.y+3);
+            pointpane.add(f);
+
+            pointpane.revalidate();
+            pointpane.repaint();
+            Line Line1=new  Line(c,d);
+            lines.add(Line1);
+            Line1.setBounds(2, 2, frame.getWidth(), frame.getHeight());
+            pointpane.add(Line1);
+            pointpane.revalidate();
+            pointpane.repaint();
+
+
+            Line Line2= new Line(f, d);
+            lines.add(Line2);
+            Line2.setBounds(2, 2, frame.getWidth(), frame.getHeight());
+            pointpane.add(Line2);
+            pointpane.revalidate();
+            pointpane.repaint();
+
+            Line Line3= new Line(f,c);
+
+            lines.add(Line3);
+            Line3.setBounds(2, 2, frame.getWidth(), frame.getHeight());
+            pointpane.add(Line3);
+            pointpane.revalidate();
+            pointpane.repaint();
+
+
+
+            System.out.println("Добавлен треугольник");
+           /*System.out.println("Точка 1: x1="+x1.getText()+"  y1="+y1.getText());
+
+            System.out.println("Точка 2: x2="+x2.getText()+"  y2="+y2.getText());
+            System.out.println("Точка 3: x3="+x3.getText()+"  y3="+y3.getText());*/
+
+            }
+        else{
+            System.out.println("Такого треугольника не существует");
+        }
+    }
+    public static void solve(){
+        Scanner sc = new Scanner(System.in);
+
+        int max = 0;
+        Point max1 = new Point();
+        Point max2 = new Point();
+        Point max3 = new Point();
+        int n = points.size();
+        for (int i = 0; i <  n; i++) {
+            for (int j = i+1; j  <  n; j++) {
+                for (int k = i+2; k  <   n; k++) {
+                    int Contest = 0;
+                    Triangle t = new Triangle(points.get(i), points.get(j), points.get(k));
+                    if (t.checkTriangle() == true) {
+                        for (int m = 0; m < n; m++) {
+                            if (t.checkPoint(points.get(m)))
+                                Contest++;
+                        }
+                        if (Contest > max) {
+                            max = Contest;
+                            max1 = new Point(t.a.x, t.a.y);
+                            max2 = new Point(t.b.x, t.b.y);
+                            max3 = new Point(t.c.x, t.c.y);
+                        }
+                    }
+
+                }
+            }
+
+        }
+        System.out.println(max1);
+        System.out.println(max2);
+        System.out.println(max3);
+        System.out.println(max);
+        paintTriangle(max1.x,max2.x,max3.x,max1.y,max2.y,max3.y);
+        Answer.setText("Вершина 1: "+ max1);
+        Answer1.setText("Вершина 2: "+ max2);
+        Answer2.setText("Вершина 3: "+ max3);
+        Answer3.setText("Количество точек: "+ max);
+
+    }
+
 }

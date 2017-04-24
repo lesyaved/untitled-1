@@ -9,10 +9,25 @@ import java.awt.*;
 public class Point extends JPanel {
     public int x;
     public int y;
-    Point(int x, int y){
+    public Point(int x, int y){
         this.x=x;
         this.y=y;
     }
+
+
+    public Point() {
+        x = 0;
+        y = 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Point{ " +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
+
     public void paint(Graphics g){
         g.setColor(Color.GREEN);
 

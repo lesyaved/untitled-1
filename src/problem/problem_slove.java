@@ -1,13 +1,17 @@
 package problem;
 
+import com.bot.Point;
+
 import java.util.Scanner;
 
 /**
  * Created by vedoa.18 on 17.04.2017.
  */
 public class problem_slove {
+
+
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+     /*   Scanner sc = new Scanner(System.in);
 
         int max = 0;
         Point max1 = new Point();
@@ -42,7 +46,7 @@ public class problem_slove {
         System.out.println(max1);
         System.out.println(max2);
         System.out.println(max3);
-        System.out.println(max);
+        System.out.println(max);*/
 
     }
 }

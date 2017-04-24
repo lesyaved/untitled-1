@@ -1,20 +1,22 @@
 package problem;
 
+import com.bot.Point;
+
 /**
  * Created by vedoa.18 on 17.04.2017.
  */
 public class Triangle {
 
-        Point a;
-        Point b;
-        Point c;
-        Triangle(Point a, Point b, Point c){
+        public Point a;
+        public Point b;
+        public Point c;
+        public Triangle(Point a, Point b, Point c){
             this.a=a;
             this.b=b;
             this.c=c;
         }
         public boolean checkTriangle(){
-            return ((c.x-a.x)/(b.x-a.x)!=(c.y-a.y)/(b.y-a.y)?true:false);
+            return ((c.x-a.x)*(b.y-a.y)!=(c.y-a.y)*(b.x-a.x)?true:false);
         }
         public  boolean checkPoint(Point p){
             double x1=a.x;
