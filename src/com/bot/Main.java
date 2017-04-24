@@ -248,6 +248,7 @@ public class Main {
 
 
             Line Line2= new Line(f, d);
+            
             lines.add(Line2);
             Line2.setBounds(2, 2, frame.getWidth(), frame.getHeight());
             pointpane.add(Line2);
