@@ -1,4 +1,4 @@
-package problem;
+package com.bot;
 
 import com.bot.Point;
 

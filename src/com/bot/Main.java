@@ -1,13 +1,11 @@
 package com.bot;
 
-import problem.Triangle;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -179,6 +177,20 @@ public class Main {
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try (Scanner in = new Scanner(new File("input.txt"))) {
+                int n = in.nextInt();
+                Point[] q = new com.bot.Point[n];
+                for (int i = 0; i < n; i++) {
+                    q[i] = new com.bot.Point(in.nextInt(), in.nextInt());
+                    points.add(q[i]);
+                    q[i].setBounds(q[i].x,q[i].y,q[i].x+3,q[i].y+3);
+                    pointpane.add(q[i]);
+                    pointpane.revalidate();
+                    pointpane.repaint();}
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                    System.out.print("IOError");
+                }
 
             }}
         );
@@ -272,9 +284,7 @@ public class Main {
             System.out.println("Точка 3: x3="+x3.getText()+"  y3="+y3.getText());*/
 
             }
-        else{
-            System.out.println("Такого треугольника не существует");
-        }
+
     }
     public static void solve(){
         Scanner sc = new Scanner(System.in);
@@ -309,7 +319,7 @@ public class Main {
         System.out.println(max1);
         System.out.println(max2);
         System.out.println(max3);
-        System.out.println(max);
+        System.out.println("Количество точек:"+max);
         paintTriangle(max1.x,max2.x,max3.x,max1.y,max2.y,max3.y);
         Answer.setText("Вершина 1: "+ max1);
         Answer1.setText("Вершина 2: "+ max2);
