@@ -6,10 +6,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    private static Point m1 = new Point();
+    private static Point m2 = new Point();
+    private static Point m3 = new Point();
+    private static int m = 0;
+
     private static ArrayList<Point> points = new ArrayList<Point>();
     private static ArrayList<Line> lines = new ArrayList<Line>();
     static JFrame frame = new JFrame("Testframe");
@@ -201,8 +207,51 @@ public class Main {
         butPanel.add(button4);
         button4.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                solve();
+            public void actionPerformed(ActionEvent e) {int max = 0;
+                Point max1 = new Point();
+                Point max2 = new Point();
+                Point max3 = new Point();
+                int n = points.size();
+                for (int i = 0; i <  n; i++) {
+                    for (int j = i+1; j  <  n; j++) {
+                        for (int k = i+2; k  <   n; k++) {
+                            int Contest = 0;
+                            Triangle t = new Triangle(points.get(i), points.get(j), points.get(k));
+                            if (t.checkTriangle() == true) {
+                                for (int m = 0; m < n; m++) {
+                                    if (t.checkPoint(points.get(m)))
+                                        Contest++;
+                                }
+                                if (Contest > max) {
+                                    max = Contest;
+                                    max1 = new Point(t.a.x, t.a.y);
+                                    max2 = new Point(t.b.x, t.b.y);
+                                    max3 = new Point(t.c.x, t.c.y);
+                                }
+                            }
+
+                        }
+                    }
+
+                }
+                System.out.println(max1);
+                System.out.println(max2);
+                System.out.println(max3);
+                System.out.println("Количество точек:"+max);
+                paintTriangle(max1.x,max2.x,max3.x,max1.y,max2.y,max3.y);
+                Answer.setText("Вершина 1: "+ max1);
+                Answer1.setText("Вершина 2: "+ max2);
+                Answer2.setText("Вершина 3: "+ max3);
+                Answer3.setText("Количество точек: "+ max);
+                m1.x = max1.x;
+                m1.y = max1.y;
+                m2.x = max2.x;
+                m2.y = max2.y;
+                m3.x = max3.x;
+                m3.y = max3.y;
+                m=max;
+
+
             }}
             );
 
@@ -211,7 +260,15 @@ public class Main {
         butPanel.add(button5);
         button5.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) { try (PrintWriter out = new PrintWriter(new File("output.txt"))) {
+                out.println(m1);
+                out.println(m2);
+                out.println(m3);
+                out.println(m );
+                System.out.println("Ответ выведен в файл");
+            } catch (Exception e1) {
+                System.out.print("Error");
+            }
 
             }}
         );
@@ -284,47 +341,6 @@ public class Main {
             System.out.println("Точка 3: x3="+x3.getText()+"  y3="+y3.getText());*/
 
             }
-
-    }
-    public static void solve(){
-        Scanner sc = new Scanner(System.in);
-
-        int max = 0;
-        Point max1 = new Point();
-        Point max2 = new Point();
-        Point max3 = new Point();
-        int n = points.size();
-        for (int i = 0; i <  n; i++) {
-            for (int j = i+1; j  <  n; j++) {
-                for (int k = i+2; k  <   n; k++) {
-                    int Contest = 0;
-                    Triangle t = new Triangle(points.get(i), points.get(j), points.get(k));
-                    if (t.checkTriangle() == true) {
-                        for (int m = 0; m < n; m++) {
-                            if (t.checkPoint(points.get(m)))
-                                Contest++;
-                        }
-                        if (Contest > max) {
-                            max = Contest;
-                            max1 = new Point(t.a.x, t.a.y);
-                            max2 = new Point(t.b.x, t.b.y);
-                            max3 = new Point(t.c.x, t.c.y);
-                        }
-                    }
-
-                }
-            }
-
-        }
-        System.out.println(max1);
-        System.out.println(max2);
-        System.out.println(max3);
-        System.out.println("Количество точек:"+max);
-        paintTriangle(max1.x,max2.x,max3.x,max1.y,max2.y,max3.y);
-        Answer.setText("Вершина 1: "+ max1);
-        Answer1.setText("Вершина 2: "+ max2);
-        Answer2.setText("Вершина 3: "+ max3);
-        Answer3.setText("Количество точек: "+ max);
 
     }
 

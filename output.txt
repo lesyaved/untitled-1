@@ -1,0 +1,4 @@
+Point{ x=278, y=303}
+Point{ x=18, y=180}
+Point{ x=90, y=35}
+5
